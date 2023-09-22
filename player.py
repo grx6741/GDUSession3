@@ -37,9 +37,7 @@ class Player:
     def shoot(self, surf, enemies, dist):
         angle = radians(self.get_mouse_angle())
         pos = copy(self.pos)
-        for i in range(dist):
-            for enemy in enemies:
-                if enemy.rect.collidepoint(pos.x, pos.y):
-                    enemy.reset()
 
-            pos += Vector2(cos(angle), sin(angle))
+        # dist -> max_range of bullet
+        # pos -> current pos of bullet
+        # enemies -> list of enemies
