@@ -1,6 +1,7 @@
+from copy import copy
 import pygame
 from pygame import Vector2
-from math import atan2
+from math import cos, sin, radians
 
 class Player:
     def __init__(self, pos):
@@ -31,4 +32,14 @@ class Player:
 
     def get_mouse_angle(self):
         mvec = Vector2(pygame.mouse.get_pos())
-        return (mvec - self.pos).angle_to(Vector2(1, 0))
+        return (Vector2(1, 0)).angle_to(mvec - self.pos)
+    
+    def shoot(self, surf, enemies, dist):
+        angle = radians(self.get_mouse_angle())
+        pos = copy(self.pos)
+        for i in range(dist):
+            for enemy in enemies:
+                if enemy.rect.collidepoint(pos.x, pos.y):
+                    enemy.reset()
+
+            pos += Vector2(cos(angle), sin(angle))
